@@ -1,0 +1,22 @@
+﻿@page "/blazor-life-cycle"
+
+<PageTitle>LifeCycle</PageTitle>
+
+<h3>Blazor LifeCycle</h3>
+
+<LifeCycle Counter="@_counter"/>
+
+<button @onclick="IncreaseCounter">Increase Counter</button>
+@code
+{
+    int _counter = 1;
+
+    public void IncreaseCounter()
+    {
+        _counter++;
+    }
+}
+
+@code {
+
+}

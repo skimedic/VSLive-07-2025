@@ -1,0 +1,92 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/home">Skimedic's Used Cars</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="nav flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="fa-solid fa-home pe-2" aria-hidden="true"></span>Home
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" @onclick="() => _expandInventorySubNav = !_expandInventorySubNav">
+                <span class="fa-solid fa-car pe-2" aria-hidden="true"></span>
+                Inventory
+                <span class="fa-solid fa-sort-down ps-1" aria-hidden="true" hidden="@(_expandInventorySubNav)"></span>
+                <span class="fa-solid fa-sort-up ps-1" aria-hidden="true" hidden="@(!_expandInventorySubNav)"></span>
+            </NavLink>
+            @if (_expandInventorySubNav)
+            {
+                <ErrorBoundary>
+                    <ChildContent>
+                        <MakesSubMenu></MakesSubMenu>
+                    </ChildContent>
+                    <ErrorContent>
+                        <div class="text-danger px-3">
+                            <span class="fa-solid fa-bomb pe-2" aria-hidden="true"></span>Unable to load Makes menu
+                        </div>
+                    </ErrorContent>
+                </ErrorBoundary>
+            }
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="blazor-life-cycle" Match="NavLinkMatch.All">
+                <span class="fa-solid fa-bolt-lightning pe-2" aria-hidden="true"></span>LifeCycle
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/razor-syntax" Match="NavLinkMatch.All">
+                <span class="fa-solid fa-cut pe-2" aria-hidden="true"></span>Razor Syntax
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/privacy" Match="NavLinkMatch.All">
+                <span class="fa-solid fa-user-secret pe-2" aria-hidden="true"></span>Privacy
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" @onclick="() => _expandValidationSubNav = !_expandValidationSubNav">
+                <span class="fa-solid fa-check pe-2" aria-hidden="true"></span>
+                Validation
+                <span class="fa-solid fa-sort-down ps-1" aria-hidden="true" hidden="@(_expandValidationSubNav)"></span>
+                <span class="fa-solid fa-sort-up ps-1" aria-hidden="true" hidden="@(!_expandValidationSubNav)"></span>
+            </NavLink>
+            @if (_expandValidationSubNav)
+            {
+                <NavLink class="nav-link ps-5" href="/validations/shopping-cart" Match="NavLinkMatch.All">
+                    <span class="fa-solid fa-cart-shopping pe-2" aria-hidden="true"></span>
+                    Shopping Cart
+                </NavLink>
+                <NavLink class="nav-link ps-5" href="/validations/car-validation" Match="NavLinkMatch.All">
+                    <span class="fa-solid fa-car pe-2" aria-hidden="true"></span>
+                    Car
+                </NavLink>
+            }
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="state-management">
+                <span class="fa-solid fa-archive pe-2" aria-hidden="true"></span>Session Storage
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private bool _expandInventorySubNav;
+
+    private bool _expandValidationSubNav;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

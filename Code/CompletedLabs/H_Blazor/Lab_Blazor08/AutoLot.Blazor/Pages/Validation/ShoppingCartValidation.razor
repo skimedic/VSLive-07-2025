@@ -1,0 +1,89 @@
+﻿@page "/validations/shopping-cart"
+@implements IDisposable
+<PageTitle>Shopping Cart Validation</PageTitle>
+<h3>Shopping Cart Validation</h3>
+<div class="row">
+    <EditForm EditContext="@editContext" OnValidSubmit="ProcessOrder" OnInvalidSubmit="StopOrder">
+        <DataAnnotationsValidator/>
+        <ValidationSummary Model="_entity"/>
+        <div>
+            <label class="col-form-label" for="@nameof(AddToCartViewModel.Id)">Id</label>
+            <InputNumber id="@nameof(AddToCartViewModel.Id)" class="form-control" @bind-Value="_entity.Id"/>
+            <ValidationMessage For="() => _entity.Id"/>
+        </div>
+        <div>
+            <label class="col-form-label" for="@nameof(AddToCartViewModel.StockQuantity)">Stock Quantity</label>
+            <InputNumber id="@nameof(AddToCartViewModel.StockQuantity)" class="form-control" @bind-Value="_entity.StockQuantity"/>
+            <ValidationMessage For="() => _entity.StockQuantity"/>
+        </div>
+        <div>
+            <label class="col-form-label" for="@nameof(AddToCartViewModel.ItemId)">ItemId</label>
+            <InputNumber id="@nameof(AddToCartViewModel.ItemId)" class="form-control" @bind-Value="_entity.ItemId" />
+            <ValidationMessage For="() => _entity.ItemId"/>
+        </div>
+        <div>
+            <label class="col-form-label" for="@nameof(AddToCartViewModel.Quantity)">Quantity</label>
+            <InputNumber id="@nameof(AddToCartViewModel.Quantity)" class="form-control" @bind-Value="_entity.Quantity" />
+            <ValidationMessage For="() => _entity.Quantity"/>
+        </div>
+        <button class="mt-3" type="submit" disabled="@buttonOneDisabled">@buttonOneLabel</button>
+        <button class="mt-3" type="submit">Process Order 2</button>
+    </EditForm>
+    <div class="mt-3 @messageClass">@message</div>
+</div>
+
+@code {
+    private const string normalButtonLabel = "Process Order 1";
+    private const string processingButtonLabel = "Processing...";
+    private bool buttonOneDisabled = true;
+    private bool formInvalid = true;
+    EditContext editContext;
+    private AddToCartViewModel _entity;
+    private string message = "";
+    private string messageClass = "";
+    private string buttonOneLabel = normalButtonLabel;
+
+    protected override void OnInitialized()
+    {
+        _entity = new AddToCartViewModel();
+        editContext = new EditContext(_entity);
+        editContext.OnFieldChanged += HandleFieldChanged;
+    }
+
+    private void HandleFieldChanged(object sender, FieldChangedEventArgs e)
+    {
+        if (editContext is null)
+        {
+            return;
+        }
+
+        formInvalid = !editContext.Validate();
+        buttonOneDisabled = formInvalid;
+    }
+
+    public void Dispose()
+    {
+        if (editContext is not null)
+        {
+            editContext.OnFieldChanged -= HandleFieldChanged;
+        }
+    }
+
+    public async Task ProcessOrder()
+    {
+        buttonOneDisabled = true;
+        buttonOneLabel = processingButtonLabel;
+        await Task.Delay(5000);
+        buttonOneLabel = normalButtonLabel;
+        message = "Order Processed";
+        messageClass = "alert alert-success";
+        buttonOneDisabled = false;
+    }
+
+    public void StopOrder()
+    {
+        message = "Order Stopped";
+        messageClass = "alert alert-danger";
+    }
+
+}

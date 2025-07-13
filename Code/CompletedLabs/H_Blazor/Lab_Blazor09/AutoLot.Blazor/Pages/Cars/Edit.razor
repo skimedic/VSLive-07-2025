@@ -1,0 +1,59 @@
+﻿@page "/cars/edit/{Id:int}"
+@inherits CarBase
+<h1>Edit Vehicle</h1>
+@if (Entity == null || !_makes.Any())
+{
+    <div>
+        <em>Loading...</em>
+    </div>
+    <PageTitle>Edit Vehicle</PageTitle>
+}
+else
+{
+    <PageTitle>Edit @Entity.PetName</PageTitle>
+    <h1>Edit Details for @Entity.PetName</h1>
+    <EditForm Model="Entity" OnSubmit="SaveCarAsync">
+        <CarEdit CarInstance="Entity" Makes="_makes"/>
+        <div class="pt-4">
+            <button class="btn btn-primary" disabled="@disabled">
+                Save <i class="fa-solid fa-save"></i>
+            </button>
+            | <ListHelper RouteStart="cars"/>
+        </div>
+        <div class="pt-2">@savingMessage</div>
+    </EditForm>
+}
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    [Inject]
+    private IMakeDataService _makeDataService { get; set; }
+
+    private bool disabled = false;
+    private string savingMessage = "";
+
+    public async Task SaveCarAsync(EditContext context)
+    {
+        if (context.Validate())
+        {
+            disabled = true;
+            savingMessage = "Saving (with a built-in delay)...";
+            await Task.Delay(5000);
+            await CarDataServiceInstance.UpdateEntityAsync(Id, Entity);
+            NavManagerInstance.NavigateTo($"/cars/details/{Id}");
+        }
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        await base.SetParametersAsync(parameters);
+        Entity = await CarDataServiceInstance.GetEntityAsync(Id);
+        _makes = await _makeDataService.GetAllEntitiesAsync();
+        StateHasChanged();
+    }
+
+    private List<Make> _makes = [];
+}

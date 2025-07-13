@@ -1,0 +1,106 @@
+﻿@inject OutputLog CustomLogger;
+<h3>LifeCycle Events</h3>
+
+@foreach (var line in CustomLogger.Data)
+{
+    @line
+    <br />
+}
+
+@code {
+    private bool _rendered;
+    private bool _shouldRender;
+    DateTime _created;
+    private int _counter;
+
+    [Parameter]
+    public int Counter
+    {
+        get => _counter;
+        set
+        {
+            _counter = value;
+            CustomLogger.Log("-----------");
+            CustomLogger.Log($"Counter setter: set to {_counter}");
+        }
+    }
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        CustomLogger.Log("-----------");
+        CustomLogger.Log("SetParametersSetAsync called");
+        _shouldRender = true;
+        if (parameters.TryGetValue(nameof(Counter), out int counter))
+        {
+            // ignore odd values
+            if (counter % 2 == 0)
+            {
+                _shouldRender = false;
+            }
+        }
+        return base.SetParametersAsync(parameters);
+    }
+    protected override void OnInitialized()
+    {
+        _rendered = false;
+        CustomLogger.Log("-----------");
+        CustomLogger.Log("OnInitialized In");
+        base.OnInitialized();
+        CustomLogger.Log("OnInitialized Out");
+    }
+    protected override void OnParametersSet()
+    {
+        CustomLogger.Log("-----------");
+        CustomLogger.Log("OnParametersSet In");
+        base.OnParametersSet();
+        CustomLogger.Log("OnParametersSet Out");
+    }
+    public void Dispose() => CustomLogger.Log("Disposed");
+
+
+    protected override bool ShouldRender()
+    {
+        CustomLogger.Log("-----------");
+        CustomLogger.Log($"ShouldRender In");
+        var result = base.ShouldRender();
+        CustomLogger.Log($"ShouldRender: {result}");
+        CustomLogger.Log($"ShouldRender Out");
+        CustomLogger.Log($"******************** PAGE END ************************");
+        return result;
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        CustomLogger.Log("-----------");
+        CustomLogger.Log($"OnAfterRender In First:{firstRender}");
+        base.OnAfterRender(firstRender);
+        CustomLogger.Log($"OnAfterRender Out First:{firstRender}");
+        if (!_rendered)
+        {
+            _rendered = true;
+            StateHasChanged();
+        }
+    }
+    //Optionally add in the async versions
+    //protected override async Task OnInitializedAsync()
+    //{
+    //  CustomLogger.Log("-----------");
+    //  CustomLogger.Log("OnInitializedAsync in called");
+    //  await base.OnInitializedAsync();
+    //  CustomLogger.Log("OnInitializedAsync out called");
+    //}
+    //protected override async Task OnParametersSetAsync()
+    //{
+    //  CustomLogger.Log("-----------");
+    //  CustomLogger.Log("OnParametersSetAsync in called");
+    //  await base.OnParametersSetAsync();
+    //  CustomLogger.Log("OnParametersSetAsync out called");
+    //}
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //  CustomLogger.Log("-----------");
+    //  CustomLogger.Log($"OnAfterRenderAsync in FirstRender = {firstRender}");
+    //  await base.OnAfterRenderAsync(firstRender);
+    //  CustomLogger.Log($"OnAfterRenderAsync out FirstRender = {firstRender}");
+    //}
+
+}
+

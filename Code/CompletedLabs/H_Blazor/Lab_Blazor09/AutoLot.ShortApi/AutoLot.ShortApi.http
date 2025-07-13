@@ -1,0 +1,6 @@
+@AutoLot.ShortApi_HostAddress = http://localhost:5122
+
+GET {{AutoLot.ShortApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

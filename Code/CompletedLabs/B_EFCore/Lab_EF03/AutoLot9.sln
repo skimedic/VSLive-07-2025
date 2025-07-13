@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLot.Models", "AutoLot.Models\AutoLot.Models.csproj", "{F240E2E0-9939-4FE0-957F-4458D87DCE89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLot.Dal", "AutoLot.Dal\AutoLot.Dal.csproj", "{C825A120-DB54-41A5-808B-BEA3BCBC630F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLot.Services", "AutoLot.Services\AutoLot.Services.csproj", "{4CCDBCAB-33E6-4AF6-B398-D0CEE48C5E56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{943C9206-BCC1-4EEF-8E56-9899DBC0913F}"
+	ProjectSection(SolutionItems) = preProject
+		..\addpackages_DAL.cmd = ..\addpackages_DAL.cmd
+		..\createsolutionandprojects_DAL.cmd = ..\createsolutionandprojects_DAL.cmd
+		..\createsolutionandprojects_DAL.ps1 = ..\createsolutionandprojects_DAL.ps1
+		..\createsolutionandprojects_DAL.sh = ..\createsolutionandprojects_DAL.sh
+		..\..\Docker.txt = ..\..\Docker.txt
+		..\..\global.json = ..\..\global.json
+		..\..\nuget.config = ..\..\nuget.config
+		DAL_Lab3.txt = DAL_Lab3.txt
+		Migrations.txt = Migrations.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoLot.Dal.Tests", "AutoLot.Dal.Tests\AutoLot.Dal.Tests.csproj", "{A583044E-A8EE-B4DC-9DFB-7949449D4337}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F240E2E0-9939-4FE0-957F-4458D87DCE89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F240E2E0-9939-4FE0-957F-4458D87DCE89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F240E2E0-9939-4FE0-957F-4458D87DCE89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F240E2E0-9939-4FE0-957F-4458D87DCE89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C825A120-DB54-41A5-808B-BEA3BCBC630F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C825A120-DB54-41A5-808B-BEA3BCBC630F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C825A120-DB54-41A5-808B-BEA3BCBC630F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C825A120-DB54-41A5-808B-BEA3BCBC630F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CCDBCAB-33E6-4AF6-B398-D0CEE48C5E56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CCDBCAB-33E6-4AF6-B398-D0CEE48C5E56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CCDBCAB-33E6-4AF6-B398-D0CEE48C5E56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CCDBCAB-33E6-4AF6-B398-D0CEE48C5E56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A583044E-A8EE-B4DC-9DFB-7949449D4337}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A583044E-A8EE-B4DC-9DFB-7949449D4337}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A583044E-A8EE-B4DC-9DFB-7949449D4337}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A583044E-A8EE-B4DC-9DFB-7949449D4337}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {22E1CB78-CB77-445E-932A-34F0660D2D56}
+	EndGlobalSection
+EndGlobal

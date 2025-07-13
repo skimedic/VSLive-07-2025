@@ -1,0 +1,52 @@
+﻿<DataAnnotationsValidator/>
+<ValidationSummary/>
+<div>
+    <label class="col-form-label" for="@nameof(Car.MakeId)">Make</label>
+    <InputSelect class="form-control" @bind-Value="CarInstance.MakeId" id="@nameof(Car.MakeId)">
+        @foreach (var item in Makes)
+        {
+            <option value="@item.Id">@item.Name</option>
+        }
+    </InputSelect>
+    <ValidationMessage For="() => CarInstance.MakeId"/>
+</div>
+<div>
+    <label class="col-form-label" for="@nameof(Car.Color)">Color</label>
+    <InputText class="form-control" @bind-Value="CarInstance.Color" id="@nameof(Car.Color)"/>
+    <ValidationMessage For="() => CarInstance.Color"/>
+</div>
+<div>
+    <label class="col-form-label" for="@nameof(Car.PetName)">Pet Name</label>
+    <InputText class="form-control" @bind-Value="CarInstance.PetName" id="@nameof(Car.PetName)"/>
+    <ValidationMessage For="() => CarInstance.PetName"/>
+</div>
+<div>
+    <label class="col-form-label" for="@nameof(Car.Price)">Price</label>
+    <InputText class="form-control" @bind-Value="CarInstance.Price" id="@nameof(Car.Price)"/>
+    <ValidationMessage For="() => CarInstance.Price"/>
+</div>
+<div>
+    <label class="col-form-label" for="@nameof(Car.DateBuilt)">Date Built</label>
+    <InputDate class="form-control" @bind-Value="CarInstance.DateBuilt" id="@nameof(Car.DateBuilt)"/>
+    <ValidationMessage For="() => CarInstance.DateBuilt"/>
+</div>
+<div>
+    <label class="col-form-label" for="@nameof(Car.IsDrivable)">Is Drivable</label>
+    <InputCheckbox @bind-Value="CarInstance.IsDrivable" id="@nameof(Car.IsDrivable)"/>
+    <ValidationMessage For="() => CarInstance.IsDrivable"/>
+</div>
+
+@code {
+
+    [Inject]
+    private IMakeDataService MakeDataService { get; set; }
+
+    [Parameter]
+    [EditorRequired]
+    public List<Make> Makes { get; set; }
+
+    [Parameter]
+    [EditorRequired]
+    public Car CarInstance { get; set; } = default!;
+
+}
