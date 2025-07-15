@@ -112,6 +112,7 @@ public class MakeTests : BaseTest, IClassFixture<EnsureAutoLotDatabaseTestFixtur
         var query =
             Context.Makes
                 .Where(x => ApplicationDbContext.InventoryCountFor(x.Id) > 2);
+        string qs = query.ToQueryString();
         var list = query.ToList();
         Assert.Single(list);
     }
