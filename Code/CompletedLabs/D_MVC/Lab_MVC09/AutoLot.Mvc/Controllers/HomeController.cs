@@ -36,6 +36,7 @@ public class HomeController(IAppLogging<HomeController> logger) : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> ValidationAsync(AddToCartViewModelMvc viewModel)
     {
         if (!ModelState.IsValid)
