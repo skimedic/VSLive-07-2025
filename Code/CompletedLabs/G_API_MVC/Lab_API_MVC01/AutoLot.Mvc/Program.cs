@@ -14,7 +14,10 @@ if (!builder.Environment.IsDevelopment())
 }
 
 // Add services to the container.
-builder.Services.AddControllersWithViews()
+builder.Services.AddControllersWithViews(options =>
+    {
+        options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+    })
     .AddControllersAsServices()
     .AddViewComponentsAsServices()
     .AddTagHelpersAsServices();
